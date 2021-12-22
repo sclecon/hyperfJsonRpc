@@ -1,0 +1,5 @@
+docker network create -d bridge demo
+
+docker run --name web-client --network demo -v /E/jsonRpc/web-client:/data/project -p 9501:9501 -itd --privileged -u root --entrypoint /bin/sh hyperf/hyperf:7.4-alpine-v3.13-swoole
+
+docker run -d -p 8600:8500 --restart=always --name=consul --network=demo consul agent -server -bootstrap -ui -node=1 -client='0.0.0.0'

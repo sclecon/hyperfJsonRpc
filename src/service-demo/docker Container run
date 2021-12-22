@@ -1,0 +1,1 @@
+docker run --name service-demo --network demo -v /E/jsonRpc/service-demo:/data/project -p 9502:9502 -p 9503:9503 -itd --privileged -u root --entrypoint /bin/sh hyperf/hyperf:7.4-alpine-v3.13-swoole

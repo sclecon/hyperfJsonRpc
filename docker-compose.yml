@@ -1,0 +1,28 @@
+# 测试第一个docker-composer配置
+
+version: "3"
+services:
+  consul:
+    image: "consul:latest"
+    container_name: "consul"
+    command: ["agent", "-server", "-bootstrap", "-ui", "-node", "1", "-client", "0.0.0.0"]
+    restart: "always"
+    ports:
+      - "8500:8500"
+  service-demo:
+    build: ./src/service-demo/
+    ports:
+      - 9502
+      - 9503
+      - 9504
+    container_name: "service-demo"
+    restart: "always"
+  web-client:
+    build: ./src/web-client/
+    ports:
+      - "9501:9501"
+    container_name: "web-client"
+    restart: "always"
+    links:
+      - consul
+      - service-demo
